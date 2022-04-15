@@ -6,5 +6,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 @Service
 public interface UserService extends IService<User>{
-    Page<User> getUser(Integer page, Integer limit, String id);
+    Page<User> getUser(Integer page, Integer limit, Integer id);
 }

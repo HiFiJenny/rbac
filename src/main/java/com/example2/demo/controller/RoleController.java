@@ -5,8 +5,6 @@ import com.example2.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 public class RoleController {
@@ -20,19 +18,20 @@ public class RoleController {
     }
 
     @GetMapping("/api/getRole")
-    public Page getRole(@RequestParam Integer page, Integer limit, String role_id){
-        Page<Role> rolePage = roleService.getRole(page,limit,role_id);
+    public Page getRole(@RequestParam Integer page, Integer limit, Integer id){
+        Page<Role> rolePage = roleService.getRole(page,limit,id);
         return rolePage;
     }
     @PostMapping("/api/newRole")
-    public Object apinewRole(@RequestParam String role_id, String role_action, String name){
-        Role role = roleService.getById(role_id);
+    public Object apinewRole(@RequestParam Integer id, Integer role_id,  Integer status, String name){
+        Role role = roleService.getById(id);
         if (role != null){
             return false;
         }else {
             Role r = new Role();
+            r.setId(id);
             r.setRole_id(role_id);
-            r.setRole_action(role_action);
+            r.setStatus(status);
             r.setName(name);
             return roleService.save(r) ? true:false;
         }

@@ -9,7 +9,8 @@ import java.io.Serializable;
 @TableName("user")
 public class User implements Serializable {
     @TableId(value = "id", type = IdType.INPUT)
-    private String id;
+    private Integer id;
+    private String username;
     private String password;
     private Integer status;
 }

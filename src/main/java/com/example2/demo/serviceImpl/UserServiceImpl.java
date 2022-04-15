@@ -14,11 +14,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     UserMapper userMapper;
     @Override
-    public Page<User> getUser(Integer page, Integer limit, String id) {
+    public Page<User> getUser(Integer page, Integer limit, Integer id) {
         Page<User> userPage = new Page<>(page, limit);
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like("id",id);
         userPage = userMapper.getUser(userPage, queryWrapper);
         return userPage;
     }
+
 }

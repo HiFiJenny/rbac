@@ -14,10 +14,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Autowired
     RoleMapper roleMapper;
     @Override
-    public Page<Role> getRole(Integer page, Integer limit, String id) {
+    public Page<Role> getRole(Integer page, Integer limit, Integer id) {
         Page<Role> rolePage = new Page<>(page, limit);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like("role_id",id);
+        queryWrapper.like("id",id);
         rolePage = roleMapper.getRole(rolePage, queryWrapper);
         return rolePage;
     }

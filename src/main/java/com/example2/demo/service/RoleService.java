@@ -6,5 +6,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 @Service
 public interface RoleService extends IService<Role>{
-    Page<Role> getRole(Integer page, Integer limit, String role_id);
+    Page<Role> getRole(Integer page, Integer limit, Integer id);
 }

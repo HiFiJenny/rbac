@@ -1,5 +1,6 @@
 package com.example2.demo.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example2.demo.entity.Role;
 import com.example2.demo.entity.User;
 import com.example2.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class UserController {
      * @Author HiFi
      */
     @PostMapping("/newUser")
-    public void newUser(@RequestParam String id, String password, Integer status){
-        jdbcTemplate.update("insert into user(id, password, status) values (?,?,?)",
-                id, password, status);
+    public void newUser(@RequestParam Integer id, String username, String password, Integer status){
+        jdbcTemplate.update("insert into user(id, username, password, status) values (?,?,?)",
+                id, username, password, status);
     }
     @GetMapping("/getUserList")
     public List<Map<String, Object>> getUserList(){
@@ -36,11 +37,11 @@ public class UserController {
         return list;
     }
     @GetMapping("/deleteUserByid")
-    public void getUserList(@RequestParam String id){
+    public void getUserList(@RequestParam Integer id){
         jdbcTemplate.update("delete from user where id = ?",id);
     }
     @PostMapping("/updatePassword")
-    public void updatePassword(@RequestParam String id, String password){
+    public void updatePassword(@RequestParam Integer id, String password){
         jdbcTemplate.update("update user set password = ? where id = ?",id, password);
     }
     /**
@@ -51,7 +52,7 @@ public class UserController {
      * @Author HiFi
      */
     @PostMapping("/api/updatePassword")
-    public Object apiupdatePassword(@RequestParam String id, String pd){
+    public Object apiupdatePassword(@RequestParam Integer id, String pd){
         User user = userService.getById(id);
         if (user == null){
             return false;
@@ -62,25 +63,27 @@ public class UserController {
         }
     }
     @GetMapping("/api/getUser")
-    public Page getUser(@RequestParam Integer page, Integer limit, String id){
+    public Page getUser(@RequestParam Integer page, Integer limit, Integer id){
         Page<User> userPage = userService.getUser(page,limit,id);
         return userPage;
     }
+
     @PostMapping("/api/newUser")
-    public Object apinewUser(@RequestParam String id, String pd, Integer status){
+    public Object apinewUser(@RequestParam Integer id, String username, String pd, Integer status){
         User user = userService.getById(id);
         if (user != null){
             return false;
         }else {
             User u = new User();
             u.setId(id);
+            u.setUsername(username);
             u.setPassword(pd);
             u.setStatus(status);
             return userService.save(u) ? true:false;
         }
     }
     @PostMapping("/api/delete")
-    public Object delete(@RequestParam String id){
+    public Object delete(@RequestParam Integer id){
         User user = userService.getById(id);
         if (user == null){
             return false;
