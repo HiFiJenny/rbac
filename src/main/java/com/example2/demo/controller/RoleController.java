@@ -16,12 +16,25 @@ public class RoleController {
         this.roleService = roleService;
         this.jdbcTemplate = jdbcTemplate;
     }
-
+    /**
+     * Description 查询角色
+     *
+     * @param
+     * @return
+     * @Author HiFi
+     */
     @GetMapping("/api/getRole")
     public Page getRole(@RequestParam Integer page, Integer limit, Integer id){
         Page<Role> rolePage = roleService.getRole(page,limit,id);
         return rolePage;
     }
+    /**
+     * Description 新增角色
+     *
+     * @param
+     * @return
+     * @Author HiFi
+     */
     @PostMapping("/api/newRole")
     public Object apinewRole(@RequestParam Integer id, Integer role_id,  Integer status, String name){
         Role role = roleService.getById(id);
