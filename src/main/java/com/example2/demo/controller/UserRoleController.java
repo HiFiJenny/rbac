@@ -12,7 +12,13 @@ public class UserRoleController {
     public UserRoleController(UserRoleService userRoleService){
         this.userRoleService = userRoleService;
     }
-
+    /**
+     * Description 获取指定用户的所有角色
+     *
+     * @param
+     * @return
+     * @Author HiFi
+     */
     @GetMapping("/api/getUserRole")
     public Page getUserRole(@RequestParam Integer page, Integer limit, Integer id){
         Page<UserRole> userRolePage = userRoleService.getUserRole(page,limit,id);
